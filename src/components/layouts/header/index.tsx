@@ -29,7 +29,6 @@ const NAV_ROUTES = [
 
 export default function Header() {
   const pathname = usePathname();
-  console.log('🚀 ~ Header ~ pathname:', pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);

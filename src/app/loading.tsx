@@ -1,6 +1,6 @@
-import { FC } from 'react';
+'use client';
 
-const LoadingPage: FC = () => {
+const LoadingPage = () => {
   return (
     <div className="fixed inset-0 bottom-0 left-0 z-[999] flex items-center justify-center bg-black/40">
       <div className="flex gap-2">

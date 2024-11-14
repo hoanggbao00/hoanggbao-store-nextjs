@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
       {
         hostname: '5sfashion.vn',
       },
+      {
+        hostname: 'file.hstatic.net',
+      },
+      {
+        hostname: 'scontent.fhan14-1.fna.fbcdn.net',
+      },
+      {
+        hostname: 'scontent.fhan14-3.fna.fbcdn.net',
+      },
     ],
   },
 };

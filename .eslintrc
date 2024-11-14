@@ -1,0 +1,11 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "globals": { "React": "readonly" },
+  "rules": {
+    "prefer-arrow-callback": ["warn"],
+    "prefer-template": ["warn"],
+    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+  },
+}

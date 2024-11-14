@@ -17,21 +17,19 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 3. Get the token from the cookie
-  const token = (await cookies()).get('token')?.value;
+  if (isProtectedRoute) {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value || '';
 
-  // 4. Redirect to /login if the user is not authenticated
-  if (!token) {
-    return NextResponse.redirect(new URL('/admin/login', req.nextUrl));
-  }
+    if (!token) {
+      return NextResponse.redirect(new URL('/admin/login', req.nextUrl));
+    }
 
-  // 5. Decrypt the session from the cookie
-  const payload = jwtDecode(token);
-  const isAdmin = payload.sub?.split('|')[1] === 'ADMIN';
+    // 5. Decrypt the session from the cookie
+    const payload = jwtDecode(token);
+    const isAdmin = payload.sub?.split('|')[1] === 'ADMIN';
 
-  // 6. Redirect to /login if the user is not admin
-  if (isProtectedRoute && !isAdmin) {
-    return NextResponse.redirect(new URL('/', req.nextUrl));
+    if (!isAdmin) return NextResponse.redirect(new URL('/', req.nextUrl));
   }
 
   return NextResponse.next();

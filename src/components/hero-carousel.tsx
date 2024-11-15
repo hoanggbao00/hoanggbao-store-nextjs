@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { GetAllSlider } from '@/data/slider';
+import toast from '@/hooks/toast';
 import { cn } from '@/lib/utils';
+import CarouselSkeleton from './carousel-skeleton';
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from './ui/carousel';
+import ErrorState from './ui/error-state';
 
 interface Props {
   className?: string;
@@ -20,16 +23,26 @@ interface Props {
 
 export default function HeroCarousel({ className, overlayClassName }: Props) {
   const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await GetAllSlider();
-      setData(data);
+      try {
+        const data = await GetAllSlider();
+        setData(data);
+      } catch (error) {
+        console.log(error);
+        toast.error('Failed to fetch slider');
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
   }, []);
 
-  return (
+  return isLoading ? (
+    <CarouselSkeleton className={className} />
+  ) : data.length > 0 ? (
     <Carousel plugins={[Autoplay({ delay: 2000 })]}>
       <CarouselContent>
         {data.map((item: any) => (
@@ -51,5 +64,14 @@ export default function HeroCarousel({ className, overlayClassName }: Props) {
         <CarouselNext />
       </div>
     </Carousel>
+  ) : (
+    <div
+      className={cn(
+        'grid h-[calc(100vh-65px)] place-items-center rounded-md bg-gray-400',
+        className
+      )}
+    >
+      <ErrorState content="Cannot load slider" />
+    </div>
   );
 }

@@ -1,14 +1,19 @@
+import { Metadata } from 'next';
 import HeroCarousel from '@/components/hero-carousel';
 import FilterSanPham from '@/components/pages/collections/filter-san-pham';
 import ProductList from '@/components/pages/collections/list-product';
 import SortSanPham from '@/components/pages/collections/sort-san-pham';
 import PageBreadcrumb from '@/components/ui/page-breadcrumb';
 
+export const metadata: Metadata = {
+  title: 'Tất cả sản phẩm',
+};
+
 export default function SanPhamPage() {
   const pageTitle = 'Tất cả sản phẩm';
 
   return (
-    <main className="container mx-auto">
+    <main className="container mx-auto p-2">
       <PageBreadcrumb title={pageTitle} />
       <div className="relative h-80 w-full overflow-hidden">
         <HeroCarousel className="h-80" overlayClassName="hidden" />

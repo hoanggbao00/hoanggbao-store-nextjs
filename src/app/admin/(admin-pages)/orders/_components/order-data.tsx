@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
+import { formatDate } from '@/lib/utils';
 
 const columns = [
   {
@@ -45,6 +46,9 @@ const columns = [
   {
     accessorKey: 'createdAt',
     header: 'Order Date',
+    cell: ({ row }: { row: any }) => (
+      <p>{formatDate(row.original.createdAt)}</p>
+    ),
   },
   {
     id: 'actions',

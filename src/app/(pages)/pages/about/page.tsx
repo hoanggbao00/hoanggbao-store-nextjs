@@ -1,4 +1,9 @@
+import { Metadata } from 'next';
 import PageBreadcrumb from '@/components/ui/page-breadcrumb';
+
+export const metadata: Metadata = {
+  title: 'About',
+};
 
 export default function AboutPage() {
   const pageTitle = 'Giới thiệu';

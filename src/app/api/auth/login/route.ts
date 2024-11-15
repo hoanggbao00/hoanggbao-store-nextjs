@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { jwtDecode } from 'jwt-decode';
 import { API_URL } from '@/global-config';
 
 export interface LoginResponse {
@@ -34,6 +33,13 @@ export const POST = async (req: NextRequest) => {
       body: JSON.stringify({ phone_number, password }),
     });
 
+    if (res.status === 400) {
+      return NextResponse.json(
+        { message: 'Phone number or password is invalid' },
+        { status: 400 }
+      );
+    }
+
     if (res.status === 422) {
       return NextResponse.json(
         { message: 'Phone number is invalid' },
@@ -43,11 +49,10 @@ export const POST = async (req: NextRequest) => {
 
     const data = (await res.json()) as LoginResponse;
 
-    const payload = jwtDecode(data.data.accessToken);
-
+    // Set cookie 10 minutes
     cookieStore.set('token', data.data.accessToken, {
       httpOnly: true,
-      maxAge: payload.exp,
+      maxAge: 60 * 10,
       sameSite: 'lax',
       path: '/',
     });
@@ -57,7 +62,10 @@ export const POST = async (req: NextRequest) => {
       token: data.data.accessToken,
     });
   } catch (error) {
-    // console.log(error);
-    return NextResponse.json({ error }, { status: 500 });
+    console.log(error);
+    return NextResponse.json(
+      { message: 'Internal server error' },
+      { status: 500 }
+    );
   }
 };

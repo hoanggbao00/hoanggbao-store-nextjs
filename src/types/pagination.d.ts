@@ -4,3 +4,11 @@ interface TPagination<T> {
   page: number;
   total: number;
 }
+
+interface TPaginationParams extends Record<any, any> {
+  limit?: number;
+  page?: number;
+  search?: string;
+  category?: string;
+  sort?: string;
+}

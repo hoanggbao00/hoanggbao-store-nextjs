@@ -1,6 +1,11 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { MapPinIcon } from 'lucide-react';
 import PageBreadcrumb from '@/components/ui/page-breadcrumb';
+
+export const metadata: Metadata = {
+  title: 'Hệ thống cửa hàng',
+};
 
 export default function StorePage() {
   const pageTitle = 'Hệ thống cửa hàng HOANGGBAO';
@@ -36,20 +41,22 @@ export default function StorePage() {
 
         {/* Store Images */}
         <div className="mb-8 flex items-center justify-center gap-2">
-          <div>
+          <div className="relative min-h-48 w-1/2 max-w-56">
             <Image
               src="https://5sfashion.vn/storage/upload/images/ckeditor/oKCjqkn6krg9AiMv09Ag7hX61TbmXwPlPzE64fzq.jpg"
               alt="Store Interior 1"
-              width={240}
-              height={180}
+              fill
+              objectFit="cover"
             />
           </div>
-          <Image
-            src="https://5sfashion.vn/storage/upload/images/ckeditor/7mcMw7bPTHbHxzJ3rmnfFuskMtDIZ4kTEEIjCCyy.jpg"
-            alt="Store Interior 2"
-            width={240}
-            height={180}
-          />
+          <div className="relative min-h-48 w-1/2 max-w-56">
+            <Image
+              src="https://5sfashion.vn/storage/upload/images/ckeditor/7mcMw7bPTHbHxzJ3rmnfFuskMtDIZ4kTEEIjCCyy.jpg"
+              alt="Store Interior 2"
+              objectFit="cover"
+              fill
+            />
+          </div>
         </div>
 
         {/* Map */}

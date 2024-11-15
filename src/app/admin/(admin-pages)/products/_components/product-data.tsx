@@ -1,14 +1,18 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import useSWR from 'swr';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import { GetAllProducts } from '@/data/products';
+import { formatDate } from '@/lib/utils';
 import { deleteProduct } from '../../_actions';
 
 export default function ProductTableData() {
-  const [data, setData] = useState<TProduct[] | []>([]);
+  const [page, setPage] = useState(1);
+
+  const { data } = useSWR('/admin/products', () => GetAllProducts({ page }));
 
   async function handleDeleteButton(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,6 +44,9 @@ export default function ProductTableData() {
     {
       accessorKey: 'createdAt',
       header: 'Created At',
+      cell: ({ row }: { row: any }) => (
+        <p>{formatDate(row.original.createdAt)}</p>
+      ),
     },
     {
       id: 'actions',
@@ -61,13 +68,5 @@ export default function ProductTableData() {
     },
   ];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await GetAllProducts();
-      setData(data.data);
-    };
-    fetchData();
-  }, []);
-
-  return <DataTable columns={columns} data={data} />;
+  return <DataTable columns={columns} data={data?.data ?? []} />;
 }

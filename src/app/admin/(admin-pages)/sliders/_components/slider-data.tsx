@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
+import { formatDate } from '@/lib/utils';
 
 const columns = [
   {
@@ -31,6 +32,9 @@ const columns = [
   {
     accessorKey: 'createdAt',
     header: 'Created At',
+    cell: ({ row }: { row: any }) => (
+      <p>{formatDate(row.original.createdAt)}</p>
+    ),
   },
   {
     id: 'actions',

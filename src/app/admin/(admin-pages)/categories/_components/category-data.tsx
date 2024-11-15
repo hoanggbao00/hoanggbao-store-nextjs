@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import { GetAllCategory } from '@/data/category';
+import { formatDate } from '@/lib/utils';
 import { TCategory } from '@/types/category';
 import { deleteCategory } from '../../_actions';
 
@@ -41,6 +42,9 @@ export default function CategoryListData() {
     {
       accessorKey: 'createdAt',
       header: 'Created At',
+      cell: ({ row }: { row: any }) => (
+        <p>{formatDate(row.original.createdAt)}</p>
+      ),
     },
     {
       id: 'actions',

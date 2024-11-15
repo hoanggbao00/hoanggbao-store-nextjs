@@ -22,6 +22,9 @@ const nextConfig: NextConfig = {
       {
         hostname: 'scontent.fhan14-3.fna.fbcdn.net',
       },
+      {
+        hostname: 'media3.coolmate.me',
+      },
     ],
   },
 };

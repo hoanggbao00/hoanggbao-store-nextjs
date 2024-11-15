@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import NextTopLoader from 'nextjs-toploader';
+import { Toaster } from '@/components/ui/sonner';
 import AppProvider from '@/providers/app-provider';
 import './globals.css';
 
@@ -30,6 +32,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppProvider>{children}</AppProvider>
+        <Toaster position="top-right" duration={2000} />
+        <NextTopLoader height={5} />
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic';
 import CartSideBar from '@/components/pages/cart/cart-sidebar';
 import PageBreadcrumb from '@/components/ui/page-breadcrumb';
-import dynamic from 'next/dynamic';
 
 const CartEmpty = dynamic(
   () => import('../../../components/pages/cart/cart-empty')

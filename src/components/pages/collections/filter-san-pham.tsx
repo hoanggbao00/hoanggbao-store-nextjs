@@ -8,13 +8,13 @@ import {
   DropdownMenuTrigger,
 } from '@radix-ui/react-dropdown-menu';
 import { ChevronDown, Filter, X } from 'lucide-react';
+import { buttonVariants } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   colorList,
   priceList,
   sizeList,
-} from '../../../app/(pages)/collections/[slug]/_libs/consts';
-import { buttonVariants } from '../../ui/button';
-import { Checkbox } from '../../ui/checkbox';
+} from '@/app/(pages)/collections/[slug]/_libs/consts';
 
 export default function FilterSanPham() {
   const [prices, setPrices] = useState<any[]>([]);
@@ -84,7 +84,7 @@ export default function FilterSanPham() {
 
   return (
     <div>
-      <div className="flex items-center gap-2 py-2">
+      <div className="flex flex-wrap items-center gap-2 py-2">
         <div className="flex items-center space-x-2 border-r">
           <Filter color="grey" />
           <p className="pr-2 font-semibold">BỘ LỌC</p>

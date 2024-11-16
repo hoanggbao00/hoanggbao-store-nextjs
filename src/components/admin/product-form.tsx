@@ -1,10 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Trash } from 'lucide-react';
-import { useFieldArray, useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { addProduct, updateProduct } from '@/app/admin/(admin-pages)/_actions';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,11 +13,14 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { addProduct, updateProduct } from '@/app/admin/(admin-pages)/_actions';
 import { GetAllCategory } from '@/data/category';
 import { GetDetailProduct } from '@/data/products';
 import { cn } from '@/lib/utils';
-import { TCategory } from '@/types/category';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Plus, Trash } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+import * as z from 'zod';
 import { ColorPicker } from '../ui/color-picker';
 import {
   Select,
@@ -100,7 +99,7 @@ export function ProductForm({ id }: { id?: string }) {
       const fetchCategories = async () => {
         try {
           const data = await GetAllCategory();
-          setCategories(data.categories);
+          setCategories(data);
         } catch (error) {
           console.log(error);
         }

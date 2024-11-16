@@ -1,11 +1,13 @@
-import type { Metadata, ResolvingMetadata } from 'next';
 import { ProductDetail } from '@/components/pages/product-detail';
 import PageBreadcrumb from '@/components/ui/page-breadcrumb';
 import { GetAllProducts, GetDetailProduct } from '@/data/products';
+import type { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
   params: Promise<{ id: string }>;
 };
+
+
 
 export async function generateStaticParams() {
   const pagination = await GetAllProducts({ limit: 100 });

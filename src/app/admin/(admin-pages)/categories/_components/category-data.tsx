@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import { GetAllCategory } from '@/data/category';
 import { formatDate } from '@/lib/utils';
-import { TCategory } from '@/types/category';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { deleteCategory } from '../../_actions';
 
 export default function CategoryListData() {
@@ -69,7 +68,7 @@ export default function CategoryListData() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await GetAllCategory();
-      setData(data.categories);
+      setData(data);
     };
     fetchData();
   }, []);

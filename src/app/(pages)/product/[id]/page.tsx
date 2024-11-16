@@ -7,8 +7,6 @@ type Props = {
   params: Promise<{ id: string }>;
 };
 
-export const dynamicParams = true;
-
 export async function generateStaticParams() {
   const pagination = await GetAllProducts({ limit: 100 });
   const products = pagination.data;

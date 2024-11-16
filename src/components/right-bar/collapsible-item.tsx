@@ -1,19 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import { useState } from 'react';
 
-type ItemType = {
-  name: string;
-  href: string;
-  items?: ItemType[];
-};
+export type Item = { name: string; slug: string; items: Item[] };
 
-type CollapsibleItemProps = {
-  title: string;
-  href?: string;
-  items?: ItemType[];
-};
-
-const NestedItem = ({ item }: { item: ItemType }) => {
+const NestedItem = ({ name, slug, items }: Item) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleExpandClick = (e: React.MouseEvent) => {
@@ -26,12 +18,12 @@ const NestedItem = ({ item }: { item: ItemType }) => {
     <li>
       <div className="flex items-center justify-between">
         <Link
-          href={item.href}
+          href={slug}
           className="block flex-grow py-1 text-sm text-gray-600 hover:text-blue-600"
         >
-          {item.name}
+          {name}
         </Link>
-        {item.items && item.items.length > 0 && (
+        {items && items.length > 0 && (
           <button
             onClick={handleExpandClick}
             className="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-blue-600"
@@ -40,10 +32,10 @@ const NestedItem = ({ item }: { item: ItemType }) => {
           </button>
         )}
       </div>
-      {isOpen && item.items && item.items.length > 0 && (
+      {isOpen && items && items.length > 0 && (
         <ul className="mt-1 space-y-2 pl-4">
-          {item.items.map((subItem, index) => (
-            <NestedItem key={index} item={subItem} />
+          {items.map((subItem, index) => (
+            <NestedItem key={index} {...subItem} />
           ))}
         </ul>
       )}
@@ -51,11 +43,7 @@ const NestedItem = ({ item }: { item: ItemType }) => {
   );
 };
 
-export default function CollapsibleItem({
-  title,
-  href,
-  items = [],
-}: CollapsibleItemProps) {
+export default function CollapsibleItem({ name, slug, items = [] }: Item) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleExpandClick = (e: React.MouseEvent) => {
@@ -68,10 +56,10 @@ export default function CollapsibleItem({
     <div className="border-b border-gray-200">
       <div className="flex w-full items-center justify-between py-2">
         <Link
-          href={href || '#'}
+          href={slug || '#'}
           className="flex-grow text-left hover:text-blue-600"
         >
-          {title}
+          {name}
         </Link>
         {items.length > 0 && (
           <button
@@ -86,7 +74,7 @@ export default function CollapsibleItem({
       {isOpen && items.length > 0 && (
         <ul className="space-y-2 pb-2 pl-4">
           {items.map((item, index) => (
-            <NestedItem key={index} item={item} />
+            <NestedItem key={index} {...item} />
           ))}
         </ul>
       )}

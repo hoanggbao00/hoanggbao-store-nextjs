@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AppProvider>{children}</AppProvider>
-        <Toaster position="top-right" duration={2000} />
+        <Toaster position="top-right" duration={2000} closeButton />
         <NextTopLoader height={5} />
       </body>
     </html>

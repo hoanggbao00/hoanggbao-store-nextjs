@@ -13,6 +13,8 @@ import { cn } from '@/lib/utils';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 /**
  * used for identifying the split char and use will pasting
  */

@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { STORE_NAME } from '@/global-config';
+import useCart from '@/stores/use-cart';
 import { CartOverlay } from './cart-overlay';
 import { NavLink } from './nav-link';
 import { SearchInput } from './search-input';
@@ -28,17 +30,26 @@ const NAV_ROUTES = [
 ] as const;
 
 export default function Header() {
+  const { _hasHydrated } = useCart();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  useEffect(() => {
+    if (!_hasHydrated) return;
+
+    // Call api to get change detail of cartId
+
+    // Then update product change like price, discount to cart store
+  }, [_hasHydrated]);
 
   return (
     <header className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold uppercase">Hoanggbao</span>
+          <span className="text-2xl font-bold uppercase">{STORE_NAME}</span>
         </Link>
 
         {/* Desktop Navigation */}

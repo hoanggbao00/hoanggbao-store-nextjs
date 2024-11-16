@@ -58,7 +58,7 @@ export function CategoryForm({ id }: { id?: string }) {
       const fetchCategories = async () => {
         try {
           const data = await GetAllCategory();
-          setCategories(data.categories);
+          setCategories(data);
         } catch (error) {
           console.log(error);
         }

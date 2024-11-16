@@ -20,7 +20,7 @@ export function ColorSelector({
           key={color.colorCode}
           onClick={() => onSelectColor(color.colorCode)}
           className={cn(
-            'h-8 w-8 rounded-full border-2 border-transparent transition-all hover:border-black',
+            'h-8 w-8 rounded-full border border-gray-300 transition-all hover:border-black',
             {
               'border-black': selectedColor === color.colorCode,
             }

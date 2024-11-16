@@ -1,4 +1,9 @@
+'use client';
+
+import useCart from '@/stores/use-cart';
+
 export default function CartSideBar() {
+  const { items, getTotalPrice } = useCart();
   return (
     <div className="space-y-6">
       {/* Order Information */}
@@ -10,7 +15,9 @@ export default function CartSideBar() {
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-b-gray-300 py-2 text-lg">
             <span className="font-medium">Tổng tiền:</span>
-            <span className="font-bold text-red-600">0₫</span>
+            <span className="font-bold text-red-600">
+              {getTotalPrice().toLocaleString()} ₫
+            </span>
           </div>
 
           <ul className="space-y-2 text-sm text-gray-600">
@@ -19,14 +26,16 @@ export default function CartSideBar() {
           </ul>
 
           {/* Minimum Order Warning */}
-          <div className="rounded bg-red-50 p-4 text-sm text-red-600">
-            Giỏ hàng của bạn hiện chưa đạt mức tối thiểu để thanh toán.
-          </div>
+          {getTotalPrice() < 150000 && (
+            <div className="rounded bg-red-50 p-4 text-sm text-red-600">
+              Giỏ hàng của bạn hiện chưa đạt mức tối thiểu để thanh toán.
+            </div>
+          )}
 
           {/* Checkout Button */}
           <button
             className="w-full rounded bg-gray-800 py-3 font-medium text-white transition-colors hover:bg-gray-700 disabled:bg-gray-400"
-            disabled
+            disabled={items.length === 0}
           >
             THANH TOÁN
           </button>

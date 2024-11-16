@@ -1,4 +1,4 @@
-export interface TCategory {
+interface TCategory {
   id: string;
   name: string;
   slug: string;
@@ -6,5 +6,5 @@ export interface TCategory {
   createdAt: Date;
   updatedAt: Date;
   children: TCategory[];
-  parent: TCategory;
+  parent?: TCategory;
 }

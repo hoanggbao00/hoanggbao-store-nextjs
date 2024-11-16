@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
+import useCart from '@/stores/use-cart';
 import { ColorSelector } from './color-selector';
 import { ImageSlider } from './image-slider';
 import { SizeSelector } from './size-selector';
@@ -11,7 +12,10 @@ interface ProductDetailProps {
 }
 
 export function ProductDetail({ product }: ProductDetailProps) {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const { update: updateCart } = useCart();
+  const [selectedColorCode, setSelectedColorCode] = useState<string | null>(
+    null
+  );
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   const discountedPrice = useMemo(() => {
@@ -23,20 +27,36 @@ export function ProductDetail({ product }: ProductDetailProps) {
   }, [product]);
 
   const selectedImageIndex = useMemo(() => {
-    return product.colors.findIndex((c) => c.colorCode === selectedColor);
-  }, [product.colors, selectedColor]);
+    return product.colors.findIndex((c) => c.colorCode === selectedColorCode);
+  }, [product.colors, selectedColorCode]);
 
   const handleAddToCart = () => {
     if (!selectedSize) {
       toast.error('Please select a size');
       return;
     }
-    if (!selectedColor) {
+    if (!selectedColorCode) {
       toast.error('Please select a color');
       return;
     }
 
     // Add to cart logic here
+    const color = product.colors.find((c) => c.colorCode === selectedColorCode);
+
+    const productCart = {
+      id: product.id,
+      name: product.name,
+      price: discountedPrice,
+      color: {
+        id: color?.id || '',
+        name: color?.name || '',
+      },
+      size: selectedSize,
+      quantity: 1,
+      thumbnail: product.colors.find((c) => c.colorCode === selectedColorCode)
+        ?.image,
+    };
+    updateCart('increase', productCart);
     toast.success('Added to cart');
   };
 
@@ -67,8 +87,8 @@ export function ProductDetail({ product }: ProductDetailProps) {
           <h3 className="mb-2 text-lg font-semibold">Colors</h3>
           <ColorSelector
             colors={product.colors}
-            selectedColor={selectedColor}
-            onSelectColor={setSelectedColor}
+            selectedColor={selectedColorCode}
+            onSelectColor={setSelectedColorCode}
           />
         </div>
 
